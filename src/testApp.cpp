@@ -5,15 +5,24 @@ using namespace ofxCv;
 void testApp::setup() {
 	cam.initGrabber(1280, 720);
 	tracker.setup();
-    mummy.loadImage("mummy-head.png");
-    pumpkin.loadImage("pumpkin-head.png");
-    frank.loadImage("frank-head.png");
-    eyeR.loadImage("mummy-eye.png");
-    eyeL.loadImage("mummy-eye.png");
     
+    mummy.loadImage("mummy-head.png");
+    mEyeR.loadImage("mummy-eye.png");
+    mEyeL.loadImage("mummy-eye.png");
+    
+    pumpkin.loadImage("pumpkin-head.png");
+    pEyeR.loadImage("pumpkin-eyeR.png");
+    pEyeL.loadImage("pumpkin-eyeL.png");
+    
+    
+    frank.loadImage("frank-head.png");
+    fEyeR.loadImage("frank-eye.png");
+    fEyeL.loadImage("frank-eye.png");
     
 
-    mummyMask.setup(mummy, eyeR);
+    mMask.setup(mummy, mEyeR, mEyeL);
+    pMask.setup(pumpkin, pEyeR, pEyeL);
+    fMask.setup(frank, fEyeR, fEyeL);
 }
 
 void testApp::exit() {
@@ -23,38 +32,58 @@ void testApp::exit() {
 //--------------------------------------------------------------
 void testApp::update() {
 	cam.update();
-    mummyMask.update();
+
+    mMask.update();
 	if(cam.isFrameNew()) {
         tracker.update(toCv(cam));
-        
-        //loop through array of masks here?
-        
-        mummyMask.position = tracker.getPosition();
-        mummyMask.left =tracker.getImagePoint(0);    //left side of face
-        mummyMask.right =tracker.getImagePoint(16);  //right side of face
-        mummyMask.eyeLPos =tracker.getImagePoint(38);
-        mummyMask.eyeRPos =tracker.getImagePoint(44);
-        mummyMask.leftEyeOpenScale =tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
-        mummyMask.rightEyeOpenScale =tracker.getGesture(ofxFaceTracker::RIGHT_EYE_OPENNESS);
 
+        mMask.position = tracker.getPosition();
+        mMask.left =tracker.getImagePoint(0);    //left side of face
+        mMask.right =tracker.getImagePoint(16);  //right side of face
+        mMask.eyeLPos =tracker.getImagePoint(38);
+        mMask.eyeRPos =tracker.getImagePoint(44);
+        mMask.leftEyeOpenScale =tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
+        mMask.rightEyeOpenScale =tracker.getGesture(ofxFaceTracker::RIGHT_EYE_OPENNESS);
 	}
     
-   
     
+    pMask.update();
+    if(cam.isFrameNew()) {
+        tracker.update(toCv(cam));
+        
+        pMask.position = tracker.getPosition();
+        pMask.left =tracker.getImagePoint(0);    //left side of face
+        pMask.right =tracker.getImagePoint(16);  //right side of face
+        pMask.eyeLPos =tracker.getImagePoint(38);
+        pMask.eyeRPos =tracker.getImagePoint(44);
+        pMask.leftEyeOpenScale =tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
+        pMask.rightEyeOpenScale =tracker.getGesture(ofxFaceTracker::RIGHT_EYE_OPENNESS);
+    }
+    
+    fMask.update();
+    if(cam.isFrameNew()) {
+        tracker.update(toCv(cam));
+        
+        fMask.position = tracker.getPosition();
+        fMask.left =tracker.getImagePoint(0);    //left side of face
+        fMask.right =tracker.getImagePoint(16);  //right side of face
+        fMask.eyeLPos =tracker.getImagePoint(38);
+        fMask.eyeRPos =tracker.getImagePoint(44);
+        fMask.leftEyeOpenScale =tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
+        fMask.rightEyeOpenScale =tracker.getGesture(ofxFaceTracker::RIGHT_EYE_OPENNESS);
+    }
+
 }
 
 //--------------------------------------------------------------
 void testApp::draw() {
 	cam.draw(0, 0);
-//	ofSetLineWidth(2);
-//	tracker.draw();
-//    auto openEyeL = tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
-    
-//    cout<<openEyeL<<endl;
     
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), 10, 20);
-   
-    mummyMask.draw();
+    
+    mMask.drawMummy();
+//    pMask.drawPumpkin();
+//    fMask.drawFrank();
 
 }
 
@@ -63,3 +92,10 @@ void testApp::keyPressed(int key) {
 		tracker.reset();
 	}
 }
+
+
+
+
+
+
+

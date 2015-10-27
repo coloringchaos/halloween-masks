@@ -15,17 +15,16 @@ public:
 	void keyPressed(int key);
 	
 	ofVideoGrabber cam;
-//	ofxFaceTracker tracker;
     ofxFaceTrackerThreaded tracker;
-//    std::vector<Mask> mMasks;
-    Mask mummyMask;
+    
+    Mask mMask;
+    Mask pMask;
+    Mask fMask;
     
     ofImage mummy;
     ofImage pumpkin;
     ofImage frank;
-    ofImage eyeR, eyeL;
-    
-//    string currentMask[];
+    ofImage mEyeR, mEyeL, pEyeR, pEyeL, fEyeR, fEyeL;
     
     ofVec2f position;
     int scale;

@@ -9,19 +9,21 @@
 class Mask {
 public:
     Mask();
-    void setup(ofImage face, ofImage eye);
+    void setup(ofImage face, ofImage eyeR, ofImage eyeL);
     void update();
-    void draw();
+    
+    void drawMummy();
+    void drawPumpkin();
+    void drawFrank();
     
     ofVec2f position;
     ofVec2f left, right, eyeLPos, eyeRPos;
-    float leftEyeOpenScale,rightEyeOpenScale;
+    float leftEyeOpenScale, rightEyeOpenScale;
     float scaleFactor;
     float rotAngle;
     
 private:
-    ofImage mFace;
-    ofImage mEyeR;
-    ofImage mEyeL;
-    
+    ofImage aFace;
+    ofImage aEyeR;
+    ofImage aEyeL;
 };
