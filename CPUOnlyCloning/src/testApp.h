@@ -1,0 +1,13 @@
+#pragma once
+
+#include "ofMain.h"
+#include "ofxCv.h"
+
+class testApp : public ofBaseApp {
+public:
+	void setup();
+	void update();
+	void draw();
+	
+	ofImage src, dst, mask, result;
+};
