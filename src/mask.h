@@ -18,6 +18,8 @@ public:
     void drawMummy();
     void drawPumpkin();
     void drawFrank();
+    void drawGhost();
+    void drawVamp();
 
     float opacity;
     float fadeOutSpeed;
@@ -37,6 +39,4 @@ private:
     ofImage aEyeR;
     ofImage aEyeL;
     ofImage aMouth;
-    
-
 };

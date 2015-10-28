@@ -21,20 +21,36 @@ void testApp::setup() {
     fEyeL.loadImage("frank-eye.png");
     fMouth.loadImage("frank-mouth.png");
     
+    ghost.loadImage("ghost-head.png");
+    gEyeR.loadImage("ghost-eyeR.png");
+    gEyeL.loadImage("ghost-eyeL.png");
+    gMouth.loadImage("ghost-mouth.png");
     
+    vamp.loadImage("vamp-head.png");
+    vEyeR.loadImage("vamp-eyeR.png");
+    vEyeL.loadImage("vamp-eyeL.png");
+    vMouth.loadImage("vamp-mouth.png");
+    
+    
+//    int mode = 4;
     // to get a random face
-    int mode = floor(ofRandom(2.999999)); // to get 0, 1, 2
+    int mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
     mMask.faceMode = mode;
     switch ( mode ) {
         case 0:
             mMask.setup(mummy, mEyeR, mEyeL, mMouth);
-            
             break;
         case 1:
             mMask.setup(pumpkin, pEyeR, pEyeL, pMouth);
             break;
         case 2:
             mMask.setup(frank, fEyeR, fEyeL, fMouth);
+            break;
+        case 3:
+            mMask.setup(ghost, gEyeR, gEyeL, gMouth);
+            break;
+        case 4:
+            mMask.setup(vamp, vEyeR, vEyeL, vMouth);
             break;
         default:
             break;
@@ -66,7 +82,6 @@ void testApp::update() {
         
         mMask.checkPresence();
 	}
-
 }
 
 //--------------------------------------------------------------
@@ -76,7 +91,7 @@ void testApp::draw() {
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), 10, 20);
     
     mMask.display();
-   
+
 }
 
 void testApp::keyPressed(int key) {

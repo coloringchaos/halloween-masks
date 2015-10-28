@@ -2,9 +2,6 @@
 //  mask.cpp
 //  ofApp
 //
-//  Created by Arielle Hein on 10/25/15.
-//
-//
 
 #include "mask.h"
 
@@ -42,12 +39,16 @@ void Mask::display() {
         case 2:
             drawFrank();
             break;
+        case 3:
+            drawGhost();
+            break;
+        case 4:
+            drawVamp();
+            break;
         default:
             break;
     }
-    
     ofPopStyle();
-    
 }
 
 void Mask::checkPresence() {
@@ -74,7 +75,6 @@ void Mask::checkPresence() {
         prevEyeLPos = eyeLPos;
         prevEyeRPos = eyeRPos;
     }
-    
 }
 
 void Mask::drawMummy(){
@@ -126,6 +126,56 @@ void Mask::drawPumpkin(){
 }
 
 void Mask::drawFrank(){
+    ofPushMatrix();
+        ofTranslate( position.x,   position.y );
+        ofScale(scaleFactor*1.2, scaleFactor*1.2);
+        ofPushMatrix();
+            ofRotate(rotAngle);
+            ofTranslate(- aFace.width/2,- aFace.height/1.7);
+            aFace.draw(0,0);
+        ofPopMatrix();
+    ofPopMatrix();
+    
+    ofPushMatrix();
+        ofTranslate(eyeLPos.x, eyeLPos.y-aEyeL.height/2);
+        ofScale(scaleFactor/1.5, scaleFactor/1.5);
+        aEyeL.draw(- aEyeL.width/2., aEyeR.height*2.5);
+    ofPopMatrix();
+    
+    ofPushMatrix();
+        ofTranslate(eyeRPos.x, eyeRPos.y-aEyeR.height/2);
+        ofScale(scaleFactor/1.5, scaleFactor/1.5);
+        aEyeR.draw(- aEyeR.width/2., aEyeR.height*2.5);
+    ofPopMatrix();
+}
+
+
+void Mask::drawGhost(){
+    ofPushMatrix();
+        ofTranslate( position.x,   position.y );
+        ofScale(scaleFactor*1.2, scaleFactor*1.2);
+        ofPushMatrix();
+            ofRotate(rotAngle);
+            ofTranslate(- aFace.width/2,- aFace.height/2);
+            aFace.draw(0,0);
+        ofPopMatrix();
+    ofPopMatrix();
+    
+    ofPushMatrix();
+        ofTranslate(eyeLPos.x, eyeLPos.y-aEyeL.height/2);
+        ofScale(scaleFactor/1.5, scaleFactor/1.5);
+        aEyeL.draw(- aEyeL.width/2, aEyeR.height);
+    ofPopMatrix();
+    
+    ofPushMatrix();
+        ofTranslate(eyeRPos.x, eyeRPos.y-aEyeR.height/2);
+        ofScale(scaleFactor/1.5, scaleFactor/1.5);
+        aEyeR.draw(- aEyeR.width, aEyeR.height);
+    ofPopMatrix();
+}
+
+
+void Mask::drawVamp(){
     ofPushMatrix();
         ofTranslate( position.x,   position.y );
         ofScale(scaleFactor*1.2, scaleFactor*1.2);

@@ -19,12 +19,11 @@ public:
     
     Mask mMask;
     
-    ofImage mummy;
-    ofImage pumpkin;
-    ofImage frank;
-    ofImage mEyeR, mEyeL, pEyeR, pEyeL, fEyeR, fEyeL;
-    ofImage mMouth, pMouth, fMouth;
-    
+    ofImage mummy, mEyeR, mEyeL, mMouth;
+    ofImage pumpkin, pEyeR, pEyeL, pMouth;
+    ofImage frank, fEyeR, fEyeL, fMouth;
+    ofImage ghost, gEyeR, gEyeL, gMouth;
+    ofImage vamp, vEyeR, vEyeL, vMouth;
     
     ofVec2f position;
     int scale;
