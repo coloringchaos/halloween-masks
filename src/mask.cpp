@@ -9,14 +9,16 @@
 #include "mask.h"
 
 Mask::Mask(){
-   
+    opacity = 255;
+    fadeOutSpeed = 10;
+    fadeInSpeed = 20;
 }
 
-void Mask::setup(ofImage face, ofImage eyeR, ofImage eyeL){
+void Mask::setup(ofImage face, ofImage eyeR, ofImage eyeL, ofImage mouth){
     aFace = face;
     aEyeR = eyeR;
     aEyeL = eyeL;
-    
+    aMouth = mouth;
 }
 
 void Mask::update(){
@@ -24,6 +26,55 @@ void Mask::update(){
     scaleFactor = dist/aFace.width;
     rotAngle = acos((right.x-left.x)/dist)*360./ TWO_PI;
     if (left.y > right.y) rotAngle *=-1.;
+}
+
+void Mask::display() {
+    ofPushStyle();
+    ofSetColor(255, opacity);
+    
+    switch ( faceMode ) {
+        case 0:
+            drawMummy();
+            break;
+        case 1:
+            drawPumpkin();
+            break;
+        case 2:
+            drawFrank();
+            break;
+        default:
+            break;
+    }
+    
+    ofPopStyle();
+    
+}
+
+void Mask::checkPresence() {
+    if (left.x == 0) {
+        if (opacity > 0) {
+            opacity -= fadeOutSpeed;
+        } else {
+            opacity = 0;
+        }
+        position = prevPosition;
+        left = prevLeft;
+        right = prevRight;
+        eyeLPos = prevEyeLPos;
+        eyeRPos = prevEyeRPos;
+    } else {
+        if (opacity < 255) {
+            opacity += fadeInSpeed;
+        } else {
+            opacity = 255;
+        }
+        prevPosition = position;
+        prevLeft = left;
+        prevRight = right;
+        prevEyeLPos = eyeLPos;
+        prevEyeRPos = eyeRPos;
+    }
+    
 }
 
 void Mask::drawMummy(){

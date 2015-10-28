@@ -9,20 +9,37 @@ void testApp::setup() {
     mummy.loadImage("mummy-head.png");
     mEyeR.loadImage("mummy-eye.png");
     mEyeL.loadImage("mummy-eye.png");
+    mMouth.loadImage("mummy-mouth.png");
     
     pumpkin.loadImage("pumpkin-head.png");
     pEyeR.loadImage("pumpkin-eyeR.png");
     pEyeL.loadImage("pumpkin-eyeL.png");
-    
+    pMouth.loadImage("pumpkin-mouth.png");
     
     frank.loadImage("frank-head.png");
     fEyeR.loadImage("frank-eye.png");
     fEyeL.loadImage("frank-eye.png");
+    fMouth.loadImage("frank-mouth.png");
     
-
-    mMask.setup(mummy, mEyeR, mEyeL);
-    pMask.setup(pumpkin, pEyeR, pEyeL);
-    fMask.setup(frank, fEyeR, fEyeL);
+    
+    // to get a random face
+    int mode = floor(ofRandom(2.999999)); // to get 0, 1, 2
+    mMask.faceMode = mode;
+    switch ( mode ) {
+        case 0:
+            mMask.setup(mummy, mEyeR, mEyeL, mMouth);
+            
+            break;
+        case 1:
+            mMask.setup(pumpkin, pEyeR, pEyeL, pMouth);
+            break;
+        case 2:
+            mMask.setup(frank, fEyeR, fEyeL, fMouth);
+            break;
+        default:
+            break;
+    }
+    
 }
 
 void testApp::exit() {
@@ -44,34 +61,11 @@ void testApp::update() {
         mMask.eyeRPos =tracker.getImagePoint(44);
         mMask.leftEyeOpenScale =tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
         mMask.rightEyeOpenScale =tracker.getGesture(ofxFaceTracker::RIGHT_EYE_OPENNESS);
+        
+        ofLine(tracker.getImagePoint(48), tracker.getImagePoint(54));
+        
+        mMask.checkPresence();
 	}
-    
-    
-    pMask.update();
-    if(cam.isFrameNew()) {
-        tracker.update(toCv(cam));
-        
-        pMask.position = tracker.getPosition();
-        pMask.left =tracker.getImagePoint(0);    //left side of face
-        pMask.right =tracker.getImagePoint(16);  //right side of face
-        pMask.eyeLPos =tracker.getImagePoint(38);
-        pMask.eyeRPos =tracker.getImagePoint(44);
-        pMask.leftEyeOpenScale =tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
-        pMask.rightEyeOpenScale =tracker.getGesture(ofxFaceTracker::RIGHT_EYE_OPENNESS);
-    }
-    
-    fMask.update();
-    if(cam.isFrameNew()) {
-        tracker.update(toCv(cam));
-        
-        fMask.position = tracker.getPosition();
-        fMask.left =tracker.getImagePoint(0);    //left side of face
-        fMask.right =tracker.getImagePoint(16);  //right side of face
-        fMask.eyeLPos =tracker.getImagePoint(38);
-        fMask.eyeRPos =tracker.getImagePoint(44);
-        fMask.leftEyeOpenScale =tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
-        fMask.rightEyeOpenScale =tracker.getGesture(ofxFaceTracker::RIGHT_EYE_OPENNESS);
-    }
 
 }
 
@@ -81,10 +75,8 @@ void testApp::draw() {
     
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), 10, 20);
     
-    mMask.drawMummy();
-//    pMask.drawPumpkin();
-//    fMask.drawFrank();
-
+    mMask.display();
+   
 }
 
 void testApp::keyPressed(int key) {

@@ -18,13 +18,13 @@ public:
     ofxFaceTrackerThreaded tracker;
     
     Mask mMask;
-    Mask pMask;
-    Mask fMask;
     
     ofImage mummy;
     ofImage pumpkin;
     ofImage frank;
     ofImage mEyeR, mEyeL, pEyeR, pEyeL, fEyeR, fEyeL;
+    ofImage mMouth, pMouth, fMouth;
+    
     
     ofVec2f position;
     int scale;
