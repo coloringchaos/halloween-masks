@@ -1,20 +1,22 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A4D0373C699384D3146D509694B516AB9C7B5AD6",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "BF5B040DE97C05BDA29D50D82CCE895C0F1F00A6",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "BF5B040DE97C05BDA29D50D82CCE895C0F1F00A6" : 0,
     "37526DA425E5430474A14FBFA1BC4525160B5FC1" : 0,
     "A4D0373C699384D3146D509694B516AB9C7B5AD6" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A59AB047-4D02-4C9C-9471-3F5588C1522D",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "37526DA425E5430474A14FBFA1BC4525160B5FC1" : "ofxCv\/",
-    "A4D0373C699384D3146D509694B516AB9C7B5AD6" : "ofxFaceTracker\/"
+    "BF5B040DE97C05BDA29D50D82CCE895C0F1F00A6" : "facetracker-empty\/",
+    "37526DA425E5430474A14FBFA1BC4525160B5FC1" : "..\/..\/addons\/ofxCv",
+    "A4D0373C699384D3146D509694B516AB9C7B5AD6" : "..\/..\/addons\/ofxFaceTracker"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "ofApp",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "example-empty\/ofApp.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ofApp.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kylemcdonald\/ofxCv.git",
@@ -25,6 +27,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kylemcdonald\/ofxFaceTracker.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A4D0373C699384D3146D509694B516AB9C7B5AD6"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/coloringchaos\/halloween-masks.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BF5B040DE97C05BDA29D50D82CCE895C0F1F00A6"
     }
   ]
 }

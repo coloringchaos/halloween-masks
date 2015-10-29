@@ -71,11 +71,6 @@ void testApp::update() {
     
     mMask.update();
 	if(cam.isFrameNew()) {
-        flipCam.setFromPixels(cam.getPixelsRef());
-        flipCam.mirror(false, true);
-        
-        camTracker.update(toCv(flipCam));
-        
         tracker.update(toCv(cam));
 
         mMask.position = tracker.getPosition();
@@ -99,7 +94,6 @@ void testApp::draw() {
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), 10, 20);
     
     mMask.display();
-
 }
 
 void testApp::keyPressed(int key) {
