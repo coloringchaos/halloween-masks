@@ -3,7 +3,10 @@
 using namespace ofxCv;
 
 void testApp::setup() {
+//    cam.listDevices();
+    cam.setDeviceID(1);
 	cam.initGrabber(1280, 720);
+    
 	tracker.setup();
     
     mummy.loadImage("mummy-head.png");
@@ -65,9 +68,14 @@ void testApp::exit() {
 //--------------------------------------------------------------
 void testApp::update() {
 	cam.update();
-
+    
     mMask.update();
 	if(cam.isFrameNew()) {
+        flipCam.setFromPixels(cam.getPixelsRef());
+        flipCam.mirror(false, true);
+        
+        camTracker.update(toCv(flipCam));
+        
         tracker.update(toCv(cam));
 
         mMask.position = tracker.getPosition();
