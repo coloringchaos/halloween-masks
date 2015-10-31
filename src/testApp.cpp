@@ -41,16 +41,61 @@ void testApp::setup() {
     vEyeL.loadImage("vamp-eyeL.png");
     vMouth.loadImage("vamp-mouth.png");
     
+//    int newMode = floor(floor(ofRandom(4.999999));
     
-
     mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
     
-    if (mMask.opacity < 70) {
-        mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
-    }
+    mMask.faceMode = mode;
+//    switch ( mode ) {
+//        case 0:
+//            mMask.setup(mummy, mEyeR, mEyeL, mMouth);
+//            break;
+//        case 1:
+//            mMask.setup(pumpkin, pEyeR, pEyeL, pMouth);
+//            break;
+//        case 2:
+//            mMask.setup(frank, fEyeR, fEyeL, fMouth);
+//            break;
+//        case 3:
+//            mMask.setup(ghost, gEyeR, gEyeL, gMouth);
+//            break;
+//        case 4:
+//            mMask.setup(vamp, vEyeR, vEyeL, vMouth);
+//            break;
+//        default:
+//            break;
+//    }
+    
+}
+
+void testApp::exit() {
+    tracker.waitForThread();
+}
+
+//--------------------------------------------------------------
+void testApp::update() {
+	cam.update();
+    
+//    cout << "mode: " << mode << endl;
+
+    mMask.update();
+	if(cam.isFrameNew()) {
+        tracker.update(toCv(cam));
+
+        mMask.position = tracker.getPosition();
+        mMask.left =tracker.getImagePoint(0);    //left side of face
+        mMask.right =tracker.getImagePoint(16);  //right side of face
+        mMask.eyeLPos =tracker.getImagePoint(38);
+        mMask.eyeRPos =tracker.getImagePoint(44);
+        mMask.leftEyeOpenScale =tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
+        mMask.rightEyeOpenScale =tracker.getGesture(ofxFaceTracker::RIGHT_EYE_OPENNESS);
+        
+        ofLine(tracker.getImagePoint(48), tracker.getImagePoint(54));
+        
+        mMask.checkPresence();
+	}
     
     mMask.faceMode = mode;
-    
     switch ( mode ) {
         case 0:
             mMask.setup(mummy, mEyeR, mEyeL, mMouth);
@@ -71,39 +116,11 @@ void testApp::setup() {
             break;
     }
     
-}
-
-void testApp::exit() {
-    tracker.waitForThread();
-}
-
-//--------------------------------------------------------------
-void testApp::update() {
-	cam.update();
-    
-    mMask.update();
-	if(cam.isFrameNew()) {
-        tracker.update(toCv(cam));
-
-        mMask.position = tracker.getPosition();
-        mMask.left =tracker.getImagePoint(0);    //left side of face
-        mMask.right =tracker.getImagePoint(16);  //right side of face
-        mMask.eyeLPos =tracker.getImagePoint(38);
-        mMask.eyeRPos =tracker.getImagePoint(44);
-        mMask.leftEyeOpenScale =tracker.getGesture(ofxFaceTracker::LEFT_EYE_OPENNESS);
-        mMask.rightEyeOpenScale =tracker.getGesture(ofxFaceTracker::RIGHT_EYE_OPENNESS);
-        
-        ofLine(tracker.getImagePoint(48), tracker.getImagePoint(54));
-        
-        mMask.checkPresence();
-        
-        
-        
-        if (mMask.opacity < 100){
-            cout << "OPACITY = " << mMask.opacity << endl;
-        }
-
-	}
+    if (mMask.opacity < 70) {
+        mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
+        mMask.faceMode = mode;
+//        cout << "mode: " << mode << endl;
+    }
     
     
 }
