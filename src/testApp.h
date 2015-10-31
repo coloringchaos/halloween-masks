@@ -3,8 +3,8 @@
 #include "ofMain.h"
 #include "ofxCv.h"
 #include "mask.h"
-//#include "ofxFaceTracker.h"
 #include "ofxFaceTrackerThreaded.h"
+#include "ofxSyphon.h"
 
 class testApp : public ofBaseApp {
 public:
@@ -30,5 +30,10 @@ public:
     ofVec3f orientation;
     ofMatrix4x4 rotationMatrix;
     ofVec2f left, right, eyeLPos, eyeRPos;
+    
+    int mode;
+    
+    ofxSyphonClient mClient;
+    ofxSyphonServer mainOutputSyphonServer;
 
 };

@@ -3,8 +3,15 @@
 using namespace ofxCv;
 
 void testApp::setup() {
-//    cam.listDevices();
-    cam.setDeviceID(1);
+    
+    //SYPHON STUFF
+    mainOutputSyphonServer.setName("Screen Output");
+    mClient.setup();
+    mClient.setApplicationName("Simple Server");
+    mClient.setServerName("");
+    
+//    cam.setDeviceID(1); //for external cam
+    cam.setDeviceID(0); //for isight camera
 	cam.initGrabber(1280, 720);
     
 	tracker.setup();
@@ -35,10 +42,15 @@ void testApp::setup() {
     vMouth.loadImage("vamp-mouth.png");
     
     
-//    int mode = 4;
-    // to get a random face
-    int mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
+
+    mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
+    
+    if (mMask.opacity < 70) {
+        mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
+    }
+    
     mMask.faceMode = mode;
+    
     switch ( mode ) {
         case 0:
             mMask.setup(mummy, mEyeR, mEyeL, mMouth);
@@ -84,7 +96,16 @@ void testApp::update() {
         ofLine(tracker.getImagePoint(48), tracker.getImagePoint(54));
         
         mMask.checkPresence();
+        
+        
+        
+        if (mMask.opacity < 100){
+            cout << "OPACITY = " << mMask.opacity << endl;
+        }
+
 	}
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -94,6 +115,10 @@ void testApp::draw() {
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), 10, 20);
     
     mMask.display();
+    
+    // SYPHON STUFF
+    mClient.draw(50, 50);
+    mainOutputSyphonServer.publishScreen();
 }
 
 void testApp::keyPressed(int key) {

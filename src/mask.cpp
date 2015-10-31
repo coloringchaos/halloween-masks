@@ -4,6 +4,7 @@
 //
 
 #include "mask.h"
+#include "ofxTimer.h"
 
 Mask::Mask(){
     opacity = 255;
@@ -16,6 +17,8 @@ void Mask::setup(ofImage face, ofImage eyeR, ofImage eyeL, ofImage mouth){
     aEyeR = eyeR;
     aEyeL = eyeL;
     aMouth = mouth;
+    
+//    myTimer.setup();
 }
 
 void Mask::update(){
@@ -53,6 +56,9 @@ void Mask::display() {
 
 void Mask::checkPresence() {
     if (left.x == 0) {
+        cout << "no mask" << endl;
+        //start timer here
+
         if (opacity > 0) {
             opacity -= fadeOutSpeed;
         } else {
@@ -64,6 +70,7 @@ void Mask::checkPresence() {
         eyeLPos = prevEyeLPos;
         eyeRPos = prevEyeRPos;
     } else {
+        cout << "yes mask" << endl;
         if (opacity < 255) {
             opacity += fadeInSpeed;
         } else {
@@ -76,6 +83,14 @@ void Mask::checkPresence() {
         prevEyeRPos = eyeRPos;
     }
 }
+
+
+
+//if opacity = 255, then start timer
+//if timer > 20 seconds, then update mode
+
+
+
 
 void Mask::drawMummy(){
     ofPushMatrix();

@@ -5,6 +5,7 @@
 
 #pragma once
 #include "ofMain.h"
+//#import <Syphon/Syphon.h>
 
 class Mask {
 public:
@@ -14,6 +15,7 @@ public:
     void display();
     
     void checkPresence();
+    void updateMode();
     
     void drawMummy();
     void drawPumpkin();
@@ -33,6 +35,8 @@ public:
     float leftEyeOpenScale, rightEyeOpenScale;
     float scaleFactor;
     float rotAngle;
+    
+//    ofxTimer myTimer;
     
 private:
     ofImage aFace;
