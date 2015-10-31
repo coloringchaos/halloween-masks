@@ -36,35 +36,14 @@ void testApp::setup() {
     gEyeL.loadImage("ghost-eyeL.png");
     gMouth.loadImage("ghost-mouth.png");
     
-    vamp.loadImage("vamp-head.png");
+    vamp.loadImage("vamp-head2.png");
     vEyeR.loadImage("vamp-eyeR.png");
     vEyeL.loadImage("vamp-eyeL.png");
     vMouth.loadImage("vamp-mouth.png");
     
-//    int newMode = floor(floor(ofRandom(4.999999));
+//    mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
     
-    mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
-    
-    mMask.faceMode = mode;
-//    switch ( mode ) {
-//        case 0:
-//            mMask.setup(mummy, mEyeR, mEyeL, mMouth);
-//            break;
-//        case 1:
-//            mMask.setup(pumpkin, pEyeR, pEyeL, pMouth);
-//            break;
-//        case 2:
-//            mMask.setup(frank, fEyeR, fEyeL, fMouth);
-//            break;
-//        case 3:
-//            mMask.setup(ghost, gEyeR, gEyeL, gMouth);
-//            break;
-//        case 4:
-//            mMask.setup(vamp, vEyeR, vEyeL, vMouth);
-//            break;
-//        default:
-//            break;
-//    }
+    mode = 4;
     
 }
 
@@ -76,7 +55,7 @@ void testApp::exit() {
 void testApp::update() {
 	cam.update();
     
-//    cout << "mode: " << mode << endl;
+    cout << "mode: " << mode << endl;
 
     mMask.update();
 	if(cam.isFrameNew()) {
@@ -96,6 +75,7 @@ void testApp::update() {
 	}
     
     mMask.faceMode = mode;
+
     switch ( mode ) {
         case 0:
             mMask.setup(mummy, mEyeR, mEyeL, mMouth);
@@ -116,13 +96,10 @@ void testApp::update() {
             break;
     }
     
-    if (mMask.opacity < 70) {
-        mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
-        mMask.faceMode = mode;
-//        cout << "mode: " << mode << endl;
-    }
-    
-    
+//    if (mMask.opacity < 70 && mMask.opacity > 30) {
+//        mode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
+//        mMask.faceMode = mode;
+//    }
 }
 
 //--------------------------------------------------------------

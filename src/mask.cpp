@@ -8,8 +8,8 @@
 
 Mask::Mask(){
     opacity = 255;
-    fadeOutSpeed = 10;
-    fadeInSpeed = 20;
+    fadeOutSpeed = 20;
+    fadeInSpeed = 30;
 }
 
 void Mask::setup(ofImage face, ofImage eyeR, ofImage eyeL, ofImage mouth){
@@ -56,9 +56,7 @@ void Mask::display() {
 
 void Mask::checkPresence() {
     if (left.x == 0) {
-        cout << "no mask" << endl;
-        //start timer here
-
+//        cout << "no mask" << endl;
         if (opacity > 0) {
             opacity -= fadeOutSpeed;
         } else {
@@ -70,7 +68,7 @@ void Mask::checkPresence() {
         eyeLPos = prevEyeLPos;
         eyeRPos = prevEyeRPos;
     } else {
-        cout << "yes mask" << endl;
+//        cout << "yes mask" << endl;
         if (opacity < 255) {
             opacity += fadeInSpeed;
         } else {
@@ -82,14 +80,10 @@ void Mask::checkPresence() {
         prevEyeLPos = eyeLPos;
         prevEyeRPos = eyeRPos;
     }
+    
+//    newMode = floor(ofRandom(4.999999)); // to get 0, 1, 2, 3, 4
+    
 }
-
-
-
-//if opacity = 255, then start timer
-//if timer > 20 seconds, then update mode
-
-
 
 
 void Mask::drawMummy(){
@@ -105,13 +99,15 @@ void Mask::drawMummy(){
     
     ofPushMatrix();
         ofTranslate(eyeLPos.x, eyeLPos.y+aEyeL.height/2.);
-        ofScale(scaleFactor/1.5, rightEyeOpenScale/9.);
+//        ofScale(scaleFactor/1.8, rightEyeOpenScale/9.);
+        ofScale(scaleFactor/1.2, scaleFactor/1.2);
         aEyeL.draw(- aEyeL.width/2., - aEyeL.height/2);
     ofPopMatrix();
     
     ofPushMatrix();
         ofTranslate(eyeRPos.x, eyeRPos.y+aEyeR.height/2.);
-        ofScale(scaleFactor/1.5, rightEyeOpenScale/9.);
+//        ofScale(scaleFactor/1.8, rightEyeOpenScale/9.);
+        ofScale(scaleFactor/1.2, scaleFactor/1.2);
         aEyeR.draw(- aEyeR.width/2., - aEyeR.height/2.);
     ofPopMatrix();
 }
@@ -129,14 +125,16 @@ void Mask::drawPumpkin(){
     
     ofPushMatrix();
         ofTranslate(eyeLPos.x, eyeLPos.y-aEyeL.height/2);
-        ofScale(scaleFactor, leftEyeOpenScale/4.);
-        aEyeL.draw(- aEyeL.width/2., 0);
+//        ofScale(scaleFactor, leftEyeOpenScale/4.);
+        ofScale(scaleFactor, scaleFactor);
+        aEyeL.draw(- aEyeL.width/2., aEyeL.height/2); //change height to fix eyes
     ofPopMatrix();
     
     ofPushMatrix();
         ofTranslate(eyeRPos.x, eyeRPos.y-aEyeR.height/2);
-        ofScale(scaleFactor, rightEyeOpenScale/4.);
-        aEyeR.draw(- aEyeR.width/2., 0);
+//        ofScale(scaleFactor, leftEyeOpenScale/4.);
+        ofScale(scaleFactor, scaleFactor);
+        aEyeR.draw(- aEyeR.width/2., aEyeR.height/2);
     ofPopMatrix();
 }
 
@@ -154,13 +152,13 @@ void Mask::drawFrank(){
     ofPushMatrix();
         ofTranslate(eyeLPos.x, eyeLPos.y-aEyeL.height/2);
         ofScale(scaleFactor/1.5, scaleFactor/1.5);
-        aEyeL.draw(- aEyeL.width/2., aEyeR.height*2.5);
+        aEyeL.draw(- aEyeL.width/2., aEyeR.height*3.2);
     ofPopMatrix();
     
     ofPushMatrix();
         ofTranslate(eyeRPos.x, eyeRPos.y-aEyeR.height/2);
         ofScale(scaleFactor/1.5, scaleFactor/1.5);
-        aEyeR.draw(- aEyeR.width/2., aEyeR.height*2.5);
+        aEyeR.draw(- aEyeR.width/2., aEyeR.height*3.2);
     ofPopMatrix();
 }
 
@@ -168,7 +166,7 @@ void Mask::drawFrank(){
 void Mask::drawGhost(){
     ofPushMatrix();
         ofTranslate( position.x,   position.y );
-        ofScale(scaleFactor*1.2, scaleFactor*1.2);
+        ofScale(scaleFactor*1.5, scaleFactor*1.5);
         ofPushMatrix();
             ofRotate(rotAngle);
             ofTranslate(- aFace.width/2,- aFace.height/2);
@@ -176,17 +174,40 @@ void Mask::drawGhost(){
         ofPopMatrix();
     ofPopMatrix();
     
+    //trying to fix eye movement
     ofPushMatrix();
-        ofTranslate(eyeLPos.x, eyeLPos.y-aEyeL.height/2);
-        ofScale(scaleFactor/1.5, scaleFactor/1.5);
-        aEyeL.draw(- aEyeL.width/2, aEyeR.height);
+        ofTranslate(eyeLPos.x, eyeLPos.y);
+        ofScale(scaleFactor/1.3, scaleFactor/1.3);
+        ofPushMatrix();
+            ofRotate(rotAngle*2);
+            ofTranslate(- aEyeL.width/2,- aEyeL.height);
+            aEyeL.draw(0, 0);
+        ofPopMatrix();
     ofPopMatrix();
     
     ofPushMatrix();
-        ofTranslate(eyeRPos.x, eyeRPos.y-aEyeR.height/2);
-        ofScale(scaleFactor/1.5, scaleFactor/1.5);
-        aEyeR.draw(- aEyeR.width, aEyeR.height);
+        ofTranslate(eyeRPos.x, eyeRPos.y);
+        ofScale(scaleFactor/1.3, scaleFactor/1.3);
+        ofPushMatrix();
+            ofRotate(rotAngle*2);
+            ofTranslate(- aEyeR.width,- aEyeR.height);
+            aEyeR.draw(0, 0);
+        ofPopMatrix();
     ofPopMatrix();
+    
+//
+//    ofPushMatrix();
+//        ofTranslate(eyeLPos.x, eyeLPos.y);
+//        ofScale(scaleFactor/1.3, scaleFactor/1.3);
+//        aEyeL.draw(- aEyeL.width/2, - aEyeR.height);
+//    ofPopMatrix();
+//    
+//    ofPushMatrix();
+//        ofTranslate(eyeRPos.x, eyeRPos.y);
+//        ofScale(scaleFactor/1.3, scaleFactor/1.3);
+//        aEyeR.draw(- aEyeR.width, - aEyeR.height);
+//    ofPopMatrix();
+    
 }
 
 
@@ -202,15 +223,15 @@ void Mask::drawVamp(){
     ofPopMatrix();
     
     ofPushMatrix();
-        ofTranslate(eyeLPos.x, eyeLPos.y-aEyeL.height/2);
-        ofScale(scaleFactor/1.5, scaleFactor/1.5);
-        aEyeL.draw(- aEyeL.width/2., aEyeR.height*2.5);
+        ofTranslate(eyeLPos.x, eyeLPos.y);
+        ofScale(scaleFactor/2., scaleFactor/2.);
+//        aEyeL.draw(- aEyeL.width/2., aEyeR.height);
     ofPopMatrix();
     
     ofPushMatrix();
-        ofTranslate(eyeRPos.x, eyeRPos.y-aEyeR.height/2);
-        ofScale(scaleFactor/1.5, scaleFactor/1.5);
-        aEyeR.draw(- aEyeR.width/2., aEyeR.height*2.5);
+        ofTranslate(eyeRPos.x, eyeRPos.y);
+        ofScale(scaleFactor/2., scaleFactor/2.);
+//        aEyeR.draw(- aEyeR.width/1.5, aEyeL.height);
     ofPopMatrix();
 }
 

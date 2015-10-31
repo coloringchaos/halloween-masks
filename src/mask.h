@@ -36,6 +36,8 @@ public:
     float scaleFactor;
     float rotAngle;
     
+    int newMode;
+    
 //    ofxTimer myTimer;
     
 private:
